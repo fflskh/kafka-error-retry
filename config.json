@@ -1,0 +1,23 @@
+{
+  "db": {
+    "username": "root",
+    "password": "12345678",
+    "database": "ty_metro_bom",
+    "host": "127.0.0.1",
+    "port": "3306",
+    "dialect": "mysql",
+    "dialectOptions": {
+      "charset": "utf8mb4"
+    },
+    "timezone": "+08:00",
+    "pool": {
+      "max": 80,
+      "min": 1
+    }
+  },
+  "kafka": {
+    "brokerList": "127.0.0.1:9092",
+    "partitions": 16,
+    "replNum": 1
+  }
+}

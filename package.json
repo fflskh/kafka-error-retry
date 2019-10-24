@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "@types/node": "^12.11.5",
+    "fnv-plus": "^1.2.12",
+    "moment": "^2.24.0",
+    "mysql": "^2.17.1",
+    "node-rdkafka": "^v2.7.2",
+    "node-schedule": "^1.3.2",
+    "typeorm": "^0.2.20"
+  },
+  "name": "kafka-error-retry",
+  "version": "1.0.0",
+  "main": "",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "liu hao",
+  "license": "ISC",
+  "description": "kafka消息重新处理组件"
+}
