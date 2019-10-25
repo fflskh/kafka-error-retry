@@ -1,5 +1,5 @@
 
-import KafkaErrorHandler from "../src/index";
+import {KafkaErrorHandler} from "../src/index";
 
 async function test() {
   let handler = KafkaErrorHandler.getInstance({

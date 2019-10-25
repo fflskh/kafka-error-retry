@@ -116,4 +116,4 @@ class KafkaErrorHandler {
         await this.db.processSuccessTopic(data);
     }
 }
-exports.default = KafkaErrorHandler;
+exports.KafkaErrorHandler = KafkaErrorHandler;

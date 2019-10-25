@@ -11,7 +11,7 @@ interface HandlerConfig {
   scheduleRule?: string
 }
 
-export default class KafkaErrorHandler {
+export class KafkaErrorHandler {
   private static instance: KafkaErrorHandler
   config: HandlerConfig
   retryPolicy: Policy

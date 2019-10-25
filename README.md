@@ -3,13 +3,15 @@
 
 ## 安装
 使用npm：
-`npm install kafka-error-retry`
+```
+npm install kafka-error-retry
+```
 
 ## 方法介绍
 * 创建一个错误处理实例，使用`getInstance`返回一个Handler实例。
 * 注：KafkaErrorHandler是单例模式，只能通过`getInstance`来获取实例。
 ```
-KafkaErrorHandler.getInstance(options)
+const handler = KafkaErrorHandler.getInstance(options)
 ```
 
 * 初始化实例。Handler只能初始化一次。

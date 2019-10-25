@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("../src/index");
 async function test() {
-    let handler = index_1.default.getInstance({
+    let handler = index_1.KafkaErrorHandler.getInstance({
         db: {
             type: "mysql",
             host: "127.0.0.1",

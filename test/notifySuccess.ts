@@ -1,4 +1,4 @@
-import KafkaErrorHandler from "../src/index";
+import {KafkaErrorHandler} from "../src/index";
 
 function sleep(ms) {
   return new Promise((resolve, reject) => {
