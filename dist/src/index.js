@@ -5,7 +5,7 @@ const db_1 = require("./db");
 const schedule = require("node-schedule");
 class KafkaErrorHandler {
     /**
-     *
+     * HandlerConfig配置
      * @param options
      * {
      *   "db": {
@@ -50,6 +50,9 @@ class KafkaErrorHandler {
         if (!options.scheduleRule) {
             this.scheduleRule = "1 * * * * *";
         }
+        else {
+            this.scheduleRule = options.scheduleRule;
+        }
         this.kafka = new kafka_1.default(Object.assign({}, this.config.kafka));
         this.db = new db_1.default(Object.assign({}, this.config.db));
     }
@@ -77,9 +80,9 @@ class KafkaErrorHandler {
             throw new Error("call initialize function first");
         }
         //运行重试任务
-        let topics = await this.db.getRetryTopics();
-        console.log(`获得${topics.length}条需要重试的topics`);
         schedule.scheduleJob(this.scheduleRule, async () => {
+            let topics = await this.db.getRetryTopics();
+            console.log(`获得${topics.length}条需要重试的topics`);
             for (let topic of topics) {
                 await this.kafka.push(topic.topic, topic.key, topic.value);
             }
@@ -114,4 +117,3 @@ class KafkaErrorHandler {
     }
 }
 exports.default = KafkaErrorHandler;
-//# sourceMappingURL=index.js.map

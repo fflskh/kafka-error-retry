@@ -63,4 +63,3 @@ function getTable(tableName) {
     });
 }
 exports.default = getTable;
-//# sourceMappingURL=businessError.table.js.map

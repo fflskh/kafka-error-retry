@@ -20,4 +20,3 @@ class Policy {
     }
 }
 exports.default = Policy;
-//# sourceMappingURL=policy.js.map

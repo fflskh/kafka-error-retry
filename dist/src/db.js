@@ -15,7 +15,6 @@ class DB {
             port: options.port,
             username: options.username,
             password: options.password,
-            // database: options.database,
             logging: options.logging,
             entities: [
                 __dirname + "/entity/*.ts"
@@ -84,4 +83,3 @@ class DB {
     }
 }
 exports.default = DB;
-//# sourceMappingURL=db.js.map

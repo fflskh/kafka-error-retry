@@ -19,7 +19,7 @@ export default class KafkaErrorHandler {
     hasInitialized: boolean;
     static getInstance(options: any): KafkaErrorHandler;
     /**
-     *
+     * HandlerConfig配置
      * @param options
      * {
      *   "db": {

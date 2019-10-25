@@ -44,4 +44,3 @@ async function test() {
     });
 }
 test().then().catch(console.error);
-//# sourceMappingURL=notifySuccess.js.map

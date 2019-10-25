@@ -106,4 +106,3 @@ class Kafak {
     }
 }
 exports.default = Kafak;
-//# sourceMappingURL=kafka.js.map

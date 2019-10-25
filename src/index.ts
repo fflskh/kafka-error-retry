@@ -107,7 +107,6 @@ export default class KafkaErrorHandler {
     if (!this.hasInitialized) {
       throw new Error("call initialize function first");
     }
-    console.log(">>>> this.scheduleRule: ", this.scheduleRule);
     //运行重试任务
     schedule.scheduleJob(this.scheduleRule, async () => {
       let topics = await this.db.getRetryTopics();

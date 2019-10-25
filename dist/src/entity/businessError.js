@@ -69,4 +69,3 @@ BusinessErrors = __decorate([
     typeorm_1.Entity()
 ], BusinessErrors);
 exports.default = BusinessErrors;
-//# sourceMappingURL=businessError.js.map
