@@ -21,7 +21,7 @@ async function test() {
       retryCount: 10,
       backoff: true
     },
-    scheduleRule: "1 * * * * *"
+    scheduleRule: "*/10 * * * * *"
   });
 
   await handler.initialize();

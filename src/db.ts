@@ -5,9 +5,11 @@ import BusinessErrors from "./entity/businessError";
 import Policy from "./policy";
 
 export default class DB {
-
+  //db配置
   config
+  //typeorm连接
   connection: Connection
+  //重试策略
   policy: Policy
 
   constructor(options) {
@@ -20,7 +22,6 @@ export default class DB {
       port: options.port,
       username: options.username,
       password: options.password,
-      // database: options.database,
       logging: options.logging,
       entities: [
         __dirname + "/entity/*.ts"

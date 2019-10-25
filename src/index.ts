@@ -31,7 +31,7 @@ export default class KafkaErrorHandler {
   }
 
   /**
-   * 
+   * HandlerConfig配置
    * @param options 
    * {
    *   "db": {
@@ -75,6 +75,8 @@ export default class KafkaErrorHandler {
     //默认每分钟的第一秒执行
     if (!options.scheduleRule) {
       this.scheduleRule = "1 * * * * *"
+    } else {
+      this.scheduleRule = options.scheduleRule;
     }
 
     this.kafka = new Kafka({
@@ -105,11 +107,12 @@ export default class KafkaErrorHandler {
     if (!this.hasInitialized) {
       throw new Error("call initialize function first");
     }
+    console.log(">>>> this.scheduleRule: ", this.scheduleRule);
     //运行重试任务
-    let topics = await this.db.getRetryTopics();
-    console.log(`获得${topics.length}条需要重试的topics`);
-
     schedule.scheduleJob(this.scheduleRule, async () => {
+      let topics = await this.db.getRetryTopics();
+      console.log(`获得${topics.length}条需要重试的topics`);
+
       for (let topic of topics) {
         await this.kafka.push(topic.topic, topic.key, topic.value);
       }
