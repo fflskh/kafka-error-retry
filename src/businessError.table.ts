@@ -51,6 +51,7 @@ export default function getTable(tableName): Table  {
       {
         name: "reachMaxRetryCount",
         type: "int",
+        default: 0,
         isNullable: true
       },
       {
