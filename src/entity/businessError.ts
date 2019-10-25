@@ -40,6 +40,12 @@ export default class BusinessErrors extends BaseEntity{
     @Column()
     nextTime: Date;
 
+    @Column("int", {
+      default: 0,
+      name: "reachMaxRetryCount"
+    })
+    reachMaxRetryCount: number;
+
     @UpdateDateColumn()
     updatedAt: Date | null;
 

@@ -49,6 +49,11 @@ export default function getTable(tableName): Table  {
         isNullable: true
       },
       {
+        name: "reachMaxRetryCount",
+        type: "int",
+        isNullable: true
+      },
+      {
         name: "createdAt",
         type: "datetime",
         default: "now()"

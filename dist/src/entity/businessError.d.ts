@@ -8,6 +8,7 @@ export default class BusinessErrors extends BaseEntity {
     value: string;
     retryCount: number;
     nextTime: Date;
+    reachMaxRetryCount: number;
     updatedAt: Date | null;
     createdAt: Date | null;
 }

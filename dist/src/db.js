@@ -27,6 +27,8 @@ class DB {
         //创建database
         let dbQueryRunner = connectionForCreateDb.createQueryRunner();
         await dbQueryRunner.createDatabase("kafka-error-retry", true);
+        //关闭连接
+        await connectionForCreateDb.close();
         //该连接用于创建表格
         let connectionForCreateTable = await typeorm_1.createConnection(Object.assign(Object.assign({}, this.config), { database: "kafka-error-retry", entities: [
                 __dirname + "/entity/*.ts"
@@ -48,6 +50,10 @@ class DB {
         if (beData) {
             beData.retryCount += 1;
             beData.nextTime = policyInst.getNextTimeByPolicy(beData.retryCount, policy);
+            if (beData.retryCount >= policy.retryCount) {
+                beData.reachMaxRetryCount = 1;
+            }
+            beData.save();
             return;
         }
         let be = new businessError_1.default();
@@ -69,11 +75,10 @@ class DB {
         });
     }
     async getRetryTopics() {
-        // let beRepository = this.connection.getRepository(BusinessErrors);
-        // BusinessErrors.find()
         return await businessError_1.default.find({
             where: {
-                nextTime: typeorm_1.LessThan(new Date())
+                nextTime: typeorm_1.LessThan(new Date()),
+                reachMaxRetryCount: 0
             },
             order: {
                 updatedAt: "ASC"

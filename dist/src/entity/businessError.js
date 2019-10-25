@@ -58,6 +58,13 @@ __decorate([
     __metadata("design:type", Date)
 ], BusinessErrors.prototype, "nextTime", void 0);
 __decorate([
+    typeorm_1.Column("int", {
+        default: 0,
+        name: "reachMaxRetryCount"
+    }),
+    __metadata("design:type", Number)
+], BusinessErrors.prototype, "reachMaxRetryCount", void 0);
+__decorate([
     typeorm_1.UpdateDateColumn(),
     __metadata("design:type", Date)
 ], BusinessErrors.prototype, "updatedAt", void 0);

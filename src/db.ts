@@ -40,6 +40,8 @@ export default class DB {
     //创建database
     let dbQueryRunner = connectionForCreateDb.createQueryRunner();
     await dbQueryRunner.createDatabase("kafka-error-retry", true);
+    //关闭连接
+    await connectionForCreateDb.close();
 
     //该连接用于创建表格
     let connectionForCreateTable = await createConnection({
@@ -70,6 +72,10 @@ export default class DB {
     if (beData) {
       beData.retryCount += 1;
       beData.nextTime = policyInst.getNextTimeByPolicy(beData.retryCount, policy);
+      if(beData.retryCount >= policy.retryCount) {
+        beData.reachMaxRetryCount = 1;
+      }
+      beData.save();
       return;
     }
 
@@ -96,12 +102,10 @@ export default class DB {
   }
 
   async getRetryTopics() {
-    // let beRepository = this.connection.getRepository(BusinessErrors);
-    // BusinessErrors.find()
-
     return await BusinessErrors.find({
       where: {
-        nextTime: LessThan(new Date())
+        nextTime: LessThan(new Date()),
+        reachMaxRetryCount: 0
       },
       order: {
         updatedAt: "ASC"
