@@ -45,7 +45,7 @@ export default function getTable(tableName): Table  {
       },
       {
         name: "nextTime",
-        type: "date",
+        type: "datetime",
         isNullable: true
       },
       {

@@ -31,7 +31,7 @@ class DB {
         await connectionForCreateDb.close();
         //该连接用于创建表格
         let connectionForCreateTable = await typeorm_1.createConnection(Object.assign(Object.assign({}, this.config), { database: "kafka-error-retry", entities: [
-                __dirname + "/entity/*.ts"
+                __dirname + "/entity/*"
             ] }));
         let tableQueryRunner = connectionForCreateTable.createQueryRunner();
         //创建business_errors表
