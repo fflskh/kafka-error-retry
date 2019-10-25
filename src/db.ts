@@ -48,7 +48,7 @@ export default class DB {
       ...this.config,
       database: "kafka-error-retry",
       entities: [
-        __dirname + "/entity/*.ts"
+        __dirname + "/entity/*"
       ]
     });
     let tableQueryRunner = connectionForCreateTable.createQueryRunner();
