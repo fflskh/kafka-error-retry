@@ -33,7 +33,7 @@ export default class DB {
     //该连接用于创建db
     let connectionForCreateDb = await createConnection({
       ...this.config,
-      database: "sys",
+      database: "mysql",
       name: "createDBConnection",
     });
 
