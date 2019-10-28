@@ -10,6 +10,7 @@ export default class Kafak {
   config
   connected = false
   producer
+  logger
 
   constructor(options) {
     if (!options.brokers) {
@@ -19,6 +20,7 @@ export default class Kafak {
     this.config.brokers = options.brokers;
     this.config.partitions = options.partitions;
     this.config.replicas = options.replicas;
+    this.logger = options.logger;
   }
 
   private createProducer() {
@@ -48,21 +50,21 @@ export default class Kafak {
     this.producer
       .on("delivery-report", (error, report) => {
         if (error) {
-          console.error({
+          this.logger({
             message: "get delivery-report error",
             error: error.stack
           });
         } else {
-          console.log({ message: "delivery-report", data: report });
+          // this.logger({ message: "delivery-report", data: report });
         }
       })
       .on("event.error", error => {
-        console.error({
+        this.logger({
           message: "kafka event.error",
           error: error.stack
         });
       }).on("connection.failure", error => {
-        console.error({
+        this.logger({
           message: "producer.connection.failure",
           error: error.stack
         });
@@ -71,7 +73,6 @@ export default class Kafak {
     return new Promise((resolve, reject) => {
       this.producer
         .on("ready", () => {
-          // console.log("connected to kafka");
           this.connected = true;
           resolve();
         })
@@ -95,20 +96,20 @@ export default class Kafak {
       let produceRes = await this.producer.produce(topic, partition, Buffer.from(JSON.stringify(value)), key, date);
       //生产消息失败，则将消息暂存到redis，后台任务遍历redis重新将生产消息
       if (!produceRes) {
-        console.log({
+        this.logger({
           message: `kafka push 【${topic}->${partition}】error,key:${key}`,
           data: value
         });
       } else {
-        console.log({
+        this.logger({
           message: `kafka push 【${topic}->${partition}】success,key:${key}`,
           data: value
         });
       }
       return produceRes;
     } catch (error) {
-      console.error({
-        message: `produce topic '${topic}'`,
+      this.logger({
+        message: `produce topic【${topic}】failed`,
         error: error.stack
       });
     }

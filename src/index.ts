@@ -8,7 +8,8 @@ interface HandlerConfig {
   db: any,
   kafka: any,
   policy?: any,
-  scheduleRule?: string
+  scheduleRule?: string,
+  logger?
 }
 
 export class KafkaErrorHandler {
@@ -21,6 +22,7 @@ export class KafkaErrorHandler {
   scheduleRule: string
   hasRun: boolean = false
   hasInitialized: boolean = false
+  logger
 
   static getInstance(options) {
     if (!this.instance) {
@@ -41,7 +43,7 @@ export class KafkaErrorHandler {
    *    username: "admin",  //用户名
    *    password: "admin",  //密码
    *    database: "test_db",  //db
-   *    logging: true,
+   *    logger: true,
    *   },
    *   "kafka": {
    *     "brokers": "127.0.0.1:9092",  //地址
@@ -68,7 +70,7 @@ export class KafkaErrorHandler {
     };
     this.config.db = options.db;
     this.config.kafka = options.kafka;
-
+    this.logger = options.logger;
     if (options.policy) {
       this.policy = options.policy
     }
@@ -80,11 +82,13 @@ export class KafkaErrorHandler {
     }
 
     this.kafka = new Kafka({
-      ...this.config.kafka
+      ...this.config.kafka,
+      logger: this.logger
     });
 
     this.db = new DB({
-      ...this.config.db
+      ...this.config.db,
+      logger: this.logger
     });
   }
 
@@ -110,7 +114,7 @@ export class KafkaErrorHandler {
     //运行重试任务
     schedule.scheduleJob(this.scheduleRule, async () => {
       let topics = await this.db.getRetryTopics();
-      console.log(`获得${topics.length}条需要重试的topics`);
+      this.logger(`获得${topics.length}条需要重试的topics`);
 
       for (let topic of topics) {
         await this.kafka.push(topic.topic, topic.key, topic.value);

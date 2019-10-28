@@ -11,6 +11,7 @@ export default class DB {
   connection: Connection
   //重试策略
   policy: Policy
+  logger
 
   constructor(options) {
     if (!options) {
@@ -27,6 +28,7 @@ export default class DB {
         __dirname + "/entity/*.ts"
       ]
     }
+    this.logger = options.logger;
   }
 
   async init() {

@@ -21,7 +21,12 @@ async function test() {
       retryCount: 10,
       backoff: true
     },
-    scheduleRule: "*/10 * * * * *"
+    scheduleRule: "*/10 * * * * *",
+    logger: function(msg) {
+      console.info({
+        message: msg
+      });
+    }
   });
 
   await handler.initialize();

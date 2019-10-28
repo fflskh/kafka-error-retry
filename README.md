@@ -62,8 +62,6 @@ handler.notifySuccess({
       password: "test",
       // 是否需要日志
       logging: true
-      // 日志输出
-      logger: console.log
     },
 
     // kafka配置
@@ -87,7 +85,10 @@ handler.notifySuccess({
     },
     
     // 定时任务执行规则，使用cron风格的定时规则
-    scheduleRule: "1 * * * * *"
+    scheduleRule: "1 * * * * *",
+    
+    // 日志输出
+    logger: console.log
   }
 ```
 
