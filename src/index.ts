@@ -43,7 +43,7 @@ export class KafkaErrorHandler {
    *    username: "admin",  //用户名
    *    password: "admin",  //密码
    *    database: "test_db",  //db
-   *    logger: true,
+   *    logging: true,
    *   },
    *   "kafka": {
    *     "brokers": "127.0.0.1:9092",  //地址
@@ -70,7 +70,11 @@ export class KafkaErrorHandler {
     };
     this.config.db = options.db;
     this.config.kafka = options.kafka;
-    this.logger = options.logger;
+    this.logger = function(msg) {
+      if(options.logger && typeof options.logger === "function") {
+        options.logger(msg);
+      }
+    }
     if (options.policy) {
       this.policy = options.policy
     }

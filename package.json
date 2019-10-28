@@ -9,7 +9,7 @@
     "typeorm": "^0.2.20"
   },
   "name": "kafka-error-retry",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "main": "dist/src/index.js",
   "directories": {
     "test": "test"
